@@ -1,0 +1,14 @@
+.layout-container{
+  display: flex;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
