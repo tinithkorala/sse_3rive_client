@@ -1,6 +1,8 @@
+import MuiPagination from '@mui/material/Pagination';
+
 const Pagination = () => {
   return (
-    <div>Pagination</div>
+    <MuiPagination count={10} color="primary" size="large"  />
   )
 }
 

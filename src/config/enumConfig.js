@@ -1,13 +1,53 @@
+import CachedIcon from '@mui/icons-material/Cached';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
+import CancelIcon from '@mui/icons-material/Cancel';
+
 export const TASK_PRIORITY = Object.freeze({
-  LOW: 'LOW',
-  MEDIUM: 'MEDIUM',
-  HIGH: 'HIGH',
+  LOW: {
+    keyword: 'Low',
+    variant: 'success',
+  },
+  MEDIUM: {
+    keyword: 'Medium',
+    variant: 'warning',
+  },
+  HIGH: {
+    keyword: 'High',
+    variant: 'error',
+  }
 })
 
 export const TASK_STATUS = Object.freeze({
-  PENDING: 'PENDING',
-  IN_PROGRESS: 'IN_PROGRESS',
-  COMPLETED: 'COMPLETED',
-  ON_HOLD: 'ON_HOLD',
-  CANCELLED: 'CANCELLED',
+  PENDING: {
+    keyword: 'PENDING',
+    label: 'Pending',
+    variant: 'warning',
+    icon: WorkHistoryIcon
+  },
+  IN_PROGRESS: {
+    keyword: 'IN_PROGRESS',
+    label: 'In Progress',
+    variant: 'info',
+    icon: CachedIcon
+  },
+  COMPLETED: {
+    keyword: 'COMPLETED',
+    label: 'Completed',
+    variant: 'success',
+    icon: TaskAltIcon
+  },
+  ON_HOLD: {
+    keyword: 'ON_HOLD',
+    label: 'On Hold',
+    variant: 'default',
+    icon: PauseCircleFilledIcon
+  },
+  CANCELLED: {
+    keyword: 'CANCELLED',
+    label: 'Completed',
+    variant: 'error',
+    icon: CancelIcon
+  },
 });

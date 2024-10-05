@@ -1,7 +1,21 @@
+import { Box, Grid2 as Grid } from "@mui/material";
+import TaskItem from "../TaskItem";
+
 const TaskContent = () => {
   return (
-    <div>TaskContent</div>
-  )
-}
+    <Box sx={{  }}>
+      <Grid container spacing={2}>
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+        <TaskItem />
+      </Grid>
+    </Box>
+  );
+};
 
-export default TaskContent
+export default TaskContent;

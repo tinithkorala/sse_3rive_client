@@ -7,8 +7,8 @@ const ButtonGroup = () => {
   return (
     <MuiButtonGroup size="medium" aria-label="Small button group">
       <Button key={1}>All</Button>
-      {Object.keys(TASK_PRIORITY)?.map((el) => (
-        <Button key={el}>{el}</Button>
+      {Object.values(TASK_PRIORITY)?.map((el) => (
+        <Button key={el.keyword}>{el.keyword}</Button>
       ))}
     </MuiButtonGroup>
   );

@@ -5,7 +5,7 @@ const InProgress = () => {
 
   const options = {
     title: 'In Progress',
-    keyword: TASK_STATUS?.IN_PROGRESS
+    keyword: TASK_STATUS?.IN_PROGRESS?.keyword
   }
 
   return (

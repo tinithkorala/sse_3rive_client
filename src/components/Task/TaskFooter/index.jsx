@@ -1,6 +1,11 @@
+import { Stack } from "@mui/material"
+import Pagination from "../../ui/Pagination"
+
 const TaskFooter = () => {
   return (
-    <div>TaskFooter</div>
+    <Stack justifyContent='center'>
+      <Pagination />
+    </Stack>
   )
 }
 
