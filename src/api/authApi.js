@@ -9,3 +9,14 @@ export const signUp = async (formData) => {
     throw error;
   }
 };
+
+// Handle user sign-in
+export const signIn = async (formData) => {
+  try {
+    const response = await axiosInstance.post('/auth/sign-in', formData);
+    return response;
+  } catch (error) {
+    console.error('Sign-in error:', error);
+    throw error;
+  }
+};
