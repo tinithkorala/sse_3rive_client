@@ -4,7 +4,7 @@ import PageTitle from "../../ui/PageTitle";
 import Button from "../../ui/Button";
 import ButtonGroup from "../../ui/ButtonGroup";
 import { Stack } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { useTaskContext } from "../../../context/TaskContext";
 import { TASK_PRIORITY } from "../../../config/enumConfig";
 
@@ -42,7 +42,7 @@ const TaskHeader = () => {
           selected={priorityFilter}
           onSelect={setPriorityFilter}
         />
-        <Button title="New" icon={<AddIcon />} />
+        <Button title="New Task" icon={<ControlPointIcon />} />
       </Stack>
     </Stack>
   );

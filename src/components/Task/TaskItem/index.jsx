@@ -14,7 +14,7 @@ import { truncateString } from "../../../utils/stringUtils";
 import { dateDisplay, formatDate } from "../../../utils/dateUtils";
 import { TASK_PRIORITY, TASK_STATUS } from "../../../config/enumConfig";
 
-import styles from './index.module.css'
+import styles from "./index.module.css";
 
 const TaskItem = ({ task }) => {
   const priority = TASK_PRIORITY?.[task.priority];
@@ -50,7 +50,12 @@ const TaskItem = ({ task }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Stack direction="row" gap={0.5} justifyContent="flex-end" sx={{ml: 1}}>
+          <Stack
+            direction="row"
+            gap={0.5}
+            justifyContent="flex-start"
+            sx={{ ml: 1 }}
+          >
             <Chip
               color={priority.variant}
               icon={<FlagIcon sx={{ fontSize: "1.25rem" }} />}
@@ -65,13 +70,13 @@ const TaskItem = ({ task }) => {
           <Stack
             direction="row"
             justifyContent="flex-end"
-            sx={{ width: "100%" }}
+            sx={{ width: "100%", flexWrap: "wrap" }}
           >
             <IconButton
               aria-label="view"
               size="large"
               color="success"
-              className={styles['action-button']}
+              className={styles["action-button"]}
             >
               <VisibilityIcon sx={{ fontSize: "1.5rem" }} />
             </IconButton>

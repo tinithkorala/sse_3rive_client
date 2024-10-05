@@ -4,11 +4,11 @@ import MuiButtonGroup from "@mui/material/ButtonGroup";
 
 const ButtonGroup = ({ buttons, selected, onSelect }) => {
   return (
-    <MuiButtonGroup size="medium" aria-label="Small button group">
+    <MuiButtonGroup variant="outlined" size="medium" aria-label="Small button group">
       {buttons?.map((el) => (
         <Button
           key={el.keyword}
-          variant={selected === el.keyword && "contained"}
+          variant={selected === el.keyword ? "contained" : "outlined"}
           onClick={() => onSelect(el.keyword)}
         >
           {el.keyword}

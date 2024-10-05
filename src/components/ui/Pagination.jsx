@@ -9,6 +9,9 @@ const Pagination = ({ currentPage = 1, setCurrentPage, totalPage = 0 }) => {
       onChange={(event, page) => setCurrentPage(page)}
       color="primary"
       size="large"
+      shape="rounded"
+      showFirstButton
+      showLastButton
     />
   );
 };

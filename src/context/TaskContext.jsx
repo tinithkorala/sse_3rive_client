@@ -21,6 +21,7 @@ const TaskProvider = ({ options, children }) => {
   const [totalPage, setTotalPage] = useState(0);
 
   const handleFetchTasks = useCallback(async () => {
+    setLoading(true);
     try {
       const priorityStr =
         priorityFilter === "ALL"
@@ -32,6 +33,8 @@ const TaskProvider = ({ options, children }) => {
       console.log(response);
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setLoading(false);
     }
   }, [currentPage, priorityFilter]);
 
