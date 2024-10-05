@@ -13,7 +13,7 @@ const NavItem = ({ item }) => {
     <ListItem disablePadding>
       <ListItemButton component={NavLink} to={item.path}>
         <ListItemIcon>
-          <InboxIcon />
+          {item?.iconComponent ? item?.iconComponent : <InboxIcon />}
         </ListItemIcon>
         <ListItemText primary={item.name} />
       </ListItemButton>
