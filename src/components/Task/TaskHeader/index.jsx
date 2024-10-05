@@ -1,12 +1,26 @@
+import { useMemo } from "react";
+
 import PageTitle from "../../ui/PageTitle";
 import Button from "../../ui/Button";
 import ButtonGroup from "../../ui/ButtonGroup";
 import { Stack } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useTaskContext } from "../../../context/TaskContext";
+import { TASK_PRIORITY } from "../../../config/enumConfig";
 
 const TaskHeader = () => {
-  const { options } = useTaskContext();
+  const { options, priorityFilter, setPriorityFilter } = useTaskContext();
+
+  const priorityArr = useMemo(
+    () => [
+      {
+        keyword: "ALL",
+        variant: "default",
+      },
+      ...Object.values(TASK_PRIORITY),
+    ],
+    []
+  );
 
   return (
     <Stack
@@ -23,7 +37,11 @@ const TaskHeader = () => {
         alignItems={{ xs: "center", sm: "flex-end" }}
         gap={2}
       >
-        <ButtonGroup />
+        <ButtonGroup
+          buttons={priorityArr}
+          selected={priorityFilter}
+          onSelect={setPriorityFilter}
+        />
         <Button title="New" icon={<AddIcon />} />
       </Stack>
     </Stack>

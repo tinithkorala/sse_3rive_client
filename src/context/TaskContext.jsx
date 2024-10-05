@@ -6,16 +6,19 @@ const TaskContext = createContext();
 const TaskProvider = ({ options, children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [priorityFilter, setPriorityFilter] = useState('ALL')
 
   return (
     <TaskContext.Provider
       value={useMemo(
         () => ({
+          priorityFilter,
+          setPriorityFilter,
           options,
           loading,
           error,
         }),
-        [options, loading, error]
+        [priorityFilter, options, loading, error]
       )}
     >
       {children}

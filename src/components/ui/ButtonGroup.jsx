@@ -1,17 +1,27 @@
+import PropTypes from "prop-types";
 import { Button } from "@mui/material";
 import MuiButtonGroup from "@mui/material/ButtonGroup";
 
-import { TASK_PRIORITY } from "../../config/enumConfig";
-
-const ButtonGroup = () => {
+const ButtonGroup = ({ buttons, selected, onSelect }) => {
   return (
     <MuiButtonGroup size="medium" aria-label="Small button group">
-      <Button key={1}>All</Button>
-      {Object.values(TASK_PRIORITY)?.map((el) => (
-        <Button key={el.keyword}>{el.keyword}</Button>
+      {buttons?.map((el) => (
+        <Button
+          key={el.keyword}
+          variant={selected === el.keyword && "contained"}
+          onClick={() => onSelect(el.keyword)}
+        >
+          {el.keyword}
+        </Button>
       ))}
     </MuiButtonGroup>
   );
+};
+
+ButtonGroup.propTypes = {
+  buttons: PropTypes.array.isRequired,
+  selected: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default ButtonGroup;
