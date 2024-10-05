@@ -1,12 +1,35 @@
-import { useContext, createContext, useState, useMemo } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+} from "react";
 import PropTypes from "prop-types";
+import { TASK_PRIORITY } from "../config/enumConfig";
+import { taskFilter } from "../api/taskApi";
 
 const TaskContext = createContext();
 
 const TaskProvider = ({ options, children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [priorityFilter, setPriorityFilter] = useState('ALL')
+  const [priorityFilter, setPriorityFilter] = useState("ALL");
+
+  const handleFetchTasks = useCallback(async () => {
+    const priorityStr =
+      priorityFilter === "ALL"
+        ? Object.keys(TASK_PRIORITY)?.join(",")
+        : priorityFilter;
+
+    const response = await taskFilter(priorityStr);
+    console.log(response);
+  }, [priorityFilter]);
+
+  useEffect(() => {
+    handleFetchTasks();
+  }, [handleFetchTasks]);
 
   return (
     <TaskContext.Provider
