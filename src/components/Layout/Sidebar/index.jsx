@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
-import { protectedRoutes } from "./../../../routes/protectedRoutes";
+import { menuRoutes } from "./../../../routes/protectedRoutes";
 
 import useScreenSize from "./../../../hooks/useScreenSize";
 import NavItem from "../NavItem";
@@ -84,7 +84,7 @@ const Sidebar = ({ isNavbarCollapsed, onNavbarToggle }) => {
       {!isMobile && <Toolbar className="layout-toolbar" />}
       <Divider />
       <List>
-        {protectedRoutes?.map((el) => (
+        {menuRoutes?.map((el) => (
           <NavItem key={el.id} item={el} />
         ))}
       </List>
