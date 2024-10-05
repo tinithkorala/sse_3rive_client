@@ -6,6 +6,7 @@ import "./App.css";
 import { ThemeProvider } from "@mui/material";
 import { useSelector } from "react-redux";
 import theme from "./theme";
+import GuestLayout from "./components/GuestLayout";
 
 function App() {
   const mode = useSelector((state) => state.ui.theme);
@@ -15,9 +16,12 @@ function App() {
       <Router>
         <Routes>
           {/* Public Routes */}
-          {publicRoutes?.map((el) => (
-            <Route key={el.id} path={el.path} element={el.component} />
-          ))}
+          <Route path="/" element={<GuestLayout />}>
+            {publicRoutes?.map((el) => (
+              <Route key={el.id} path={el.path} element={el.component} />
+            ))}
+          </Route>
+
           {/* Protected Routes */}
           <Route path="/" element={<Layout />}>
             {protectedRoutes?.map((el) => (
