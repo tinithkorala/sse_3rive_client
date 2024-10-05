@@ -3,23 +3,14 @@ import TaskItem from "../TaskItem";
 import { useTaskContext } from "../../../context/TaskContext";
 
 const TaskContent = () => {
-
   const { taskList } = useTaskContext();
 
   return (
-    <Box sx={{  }}>
+    <Box>
       <Grid container spacing={2}>
-        {/* <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem /> */}
-        {
-          taskList?.map((el) => <TaskItem key={el.id} />)
-        }
+        {taskList?.map((el) => (
+          <TaskItem key={el.id} task={el} />
+        ))}
       </Grid>
     </Box>
   );

@@ -46,7 +46,7 @@ export const TASK_STATUS = Object.freeze({
   },
   CANCELLED: {
     keyword: 'CANCELLED',
-    label: 'Completed',
+    label: 'Cancelled',
     variant: 'error',
     icon: CancelIcon
   },
