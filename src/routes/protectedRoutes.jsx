@@ -1,5 +1,6 @@
-import DashboardIcon from '@mui/icons-material/Dashboard';
 import AllTasks from "../pages/task/AllTasks";
+import InProgress from "../pages/task/InProgress";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import CachedIcon from '@mui/icons-material/Cached';
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
@@ -28,7 +29,7 @@ export const menuRoutes = [
     id: 3,
     name: "In Progress Tasks",
     path: "/tasks-in-progress",
-    component: <h1>In Progress Tasks</h1>,
+    component: <InProgress />,
     isNavItem: true,
     iconComponent: <CachedIcon />,
   },
