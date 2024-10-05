@@ -15,16 +15,16 @@ function App() {
     <ThemeProvider theme={theme(mode)}>
       <Router>
         <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<GuestLayout />}>
-            {publicRoutes?.map((el) => (
+          {/* Protected Routes */}
+          <Route path="/" element={<Layout />}>
+            {protectedRoutes?.map((el) => (
               <Route key={el.id} path={el.path} element={el.component} />
             ))}
           </Route>
 
-          {/* Protected Routes */}
-          <Route path="/" element={<Layout />}>
-            {protectedRoutes?.map((el) => (
+          {/* Public Routes */}
+          <Route path="/" element={<GuestLayout />}>
+            {publicRoutes?.map((el) => (
               <Route key={el.id} path={el.path} element={el.component} />
             ))}
           </Route>

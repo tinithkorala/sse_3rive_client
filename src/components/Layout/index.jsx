@@ -1,26 +1,35 @@
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { CssBaseline, Box, Container, Paper } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { blueGrey, grey } from "@mui/material/colors";
+import { useTheme } from "@emotion/react";
+
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import styles from "./index.module.css";
-import { Outlet } from "react-router-dom";
-import { CssBaseline, Box, Container, Paper } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-
 import { toggleNavbar } from "./../../store/slices/uiSlice";
-import useScreenSize from "../../hooks/useScreenSize";
-import { blueGrey, grey } from "@mui/material/colors";
 import { themeModes } from "../../utils/uiUtils";
-import { useTheme } from "@emotion/react";
+import useScreenSize from "../../hooks/useScreenSize";
+import { useAuth } from "../../hooks/useAuth";
 
 const Layout = () => {
+
   const theme = useTheme();
-  const dispatch = useDispatch();
   const { isMobile } = useScreenSize();
+
+  const dispatch = useDispatch();
   const { isNavbarCollapsed } = useSelector((state) => state?.ui);
+  const { isAuthenticated } = useAuth();
+  const location = useLocation();
 
   const toggleDrawer = () => {
     dispatch(toggleNavbar());
   };
+
+  if(!isAuthenticated) {
+    return <Navigate to="/sign-in" state={{ from: location }} replace />
+  }
 
   return (
     <Box className={styles["layout-container"]} sx={{
