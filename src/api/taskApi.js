@@ -1,8 +1,15 @@
 import axiosInstance from "../config/apiConfig";
+
+// const sortBy = 'sort=-createdAt,-due_date&limit=10&page=2';
+const sort = 'sort=-createdAt,-due_date';
+const limit = 'limit=5';
+
+const finaleQuery = `?${sort}&${limit}`
+
 // Handle user task-filter
-export const taskFilter = async (priorityStr) => {
+export const taskFilter = async (priorityStr, page = 1) => {
   try {
-    let queryString = `?priority[in]=${priorityStr.toUpperCase()}`;
+    let queryString = `${finaleQuery}&page=${page}&priority[in]=${priorityStr.toUpperCase()}`;
     const response = await axiosInstance.get(`/tasks${queryString}`);
     return response;
   } catch (error) {

@@ -1,12 +1,19 @@
-import { Stack } from "@mui/material"
-import Pagination from "../../ui/Pagination"
+import { Stack } from "@mui/material";
+import Pagination from "../../ui/Pagination";
+import { useTaskContext } from "../../../context/TaskContext";
 
 const TaskFooter = () => {
-  return (
-    <Stack justifyContent='center'>
-      <Pagination />
-    </Stack>
-  )
-}
+  const { currentPage, setCurrentPage, totalPage } = useTaskContext();
 
-export default TaskFooter
+  return (
+    <Stack justifyContent="center">
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalPage={totalPage}
+      />
+    </Stack>
+  );
+};
+
+export default TaskFooter;

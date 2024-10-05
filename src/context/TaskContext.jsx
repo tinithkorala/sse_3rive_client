@@ -17,6 +17,8 @@ const TaskProvider = ({ options, children }) => {
   const [error, setError] = useState(null);
   const [priorityFilter, setPriorityFilter] = useState("ALL");
   const [taskList, setTaskList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
 
   const handleFetchTasks = useCallback(async () => {
     try {
@@ -24,17 +26,22 @@ const TaskProvider = ({ options, children }) => {
         priorityFilter === "ALL"
           ? Object.keys(TASK_PRIORITY)?.join(",")
           : priorityFilter;
-      const response = await taskFilter(priorityStr);
+      const response = await taskFilter(priorityStr, currentPage);
       setTaskList(response?.data?.tasks || []);
+      setTotalPage(response?.totalPages || 0);
       console.log(response);
     } catch (error) {
       console.error(error.message);
     }
-  }, [priorityFilter]);
+  }, [currentPage, priorityFilter]);
 
   useEffect(() => {
     handleFetchTasks();
   }, [handleFetchTasks]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [priorityFilter])
 
   return (
     <TaskContext.Provider
@@ -43,11 +50,22 @@ const TaskProvider = ({ options, children }) => {
           priorityFilter,
           setPriorityFilter,
           taskList,
+          currentPage,
+          setCurrentPage,
+          totalPage,
           options,
           loading,
           error,
         }),
-        [priorityFilter, taskList, options, loading, error]
+        [
+          priorityFilter,
+          taskList,
+          currentPage,
+          totalPage,
+          options,
+          loading,
+          error,
+        ]
       )}
     >
       {children}
