@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getAccessToken, getRefreshToken } from '../utils/tokenUtils';
 
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const VITE_API_VERSION = import.meta.env.VITE_API_VERSION;
@@ -14,7 +15,13 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
   (error) => Promise.reject(error instanceof Error ? error : new Error(error)),
 );
 

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { signUpThunk, signInThunk } from "./../thunks/authThunks";
 import { stateStatus } from "../../config/appConfig";
+import { setAccessToken, setRefreshToken } from "../../utils/tokenUtils";
 
 const initialState = {
   isAuthenticated: false,
@@ -24,8 +25,8 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.status = stateStatus.SUCCEEDED;
         state.error = null;
-        localStorage.setItem("accessToken", action.payload.data.accessToken);
-        localStorage.setItem("refreshToken", action.payload.data.refreshToken);
+        setAccessToken(action.payload.data.accessToken);
+        setRefreshToken(action.payload.data.refreshToken);
       })
       .addCase(signUpThunk.rejected, (state, action) => {
         state.isAuthenticated = false;
@@ -41,8 +42,8 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.status = stateStatus.SUCCEEDED;
         state.error = null;
-        localStorage.setItem("accessToken", action.payload.data.accessToken);
-        localStorage.setItem("refreshToken", action.payload.data.refreshToken);
+        setAccessToken(action.payload.data.accessToken);
+        setRefreshToken(action.payload.data.refreshToken);
       })
       .addCase(signInThunk.rejected, (state, action) => {
         state.isAuthenticated = false;

@@ -16,15 +16,20 @@ const TaskProvider = ({ options, children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [priorityFilter, setPriorityFilter] = useState("ALL");
+  const [taskList, setTaskList] = useState([]);
 
   const handleFetchTasks = useCallback(async () => {
-    const priorityStr =
-      priorityFilter === "ALL"
-        ? Object.keys(TASK_PRIORITY)?.join(",")
-        : priorityFilter;
-
-    const response = await taskFilter(priorityStr);
-    console.log(response);
+    try {
+      const priorityStr =
+        priorityFilter === "ALL"
+          ? Object.keys(TASK_PRIORITY)?.join(",")
+          : priorityFilter;
+      const response = await taskFilter(priorityStr);
+      setTaskList(response?.data?.tasks || []);
+      console.log(response);
+    } catch (error) {
+      console.error(error.message);
+    }
   }, [priorityFilter]);
 
   useEffect(() => {
@@ -37,11 +42,12 @@ const TaskProvider = ({ options, children }) => {
         () => ({
           priorityFilter,
           setPriorityFilter,
+          taskList,
           options,
           loading,
           error,
         }),
-        [priorityFilter, options, loading, error]
+        [priorityFilter, taskList, options, loading, error]
       )}
     >
       {children}
