@@ -8,7 +8,7 @@ import { TaskProvider } from "../../context/TaskContext";
 const TaskWrapper = ({ options }) => {
   return (
     <TaskProvider options={options}>
-      <Stack>
+      <Stack gap={3}>
         <TaskHeader />
         <TaskContent />
         <TaskFooter />
