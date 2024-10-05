@@ -32,7 +32,7 @@ const theme = (mode) => {
 
   return responsiveFontSizes(
     createTheme({
-      direction: 'ltr',
+      direction: "ltr",
       palette: {
         mode: mode,
         text: isDarkMode ? darkPalette.text : lightPalette.text,
@@ -43,11 +43,13 @@ const theme = (mode) => {
           focusOpacity: 0.16,
           activedOpacity: 0.24,
         },
-        background: isDarkMode ? darkPalette.background : lightPalette.background,
+        background: isDarkMode
+          ? darkPalette.background
+          : lightPalette.background,
       },
       typography: {
         fontFamily:
-          '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif',
+          "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
       },
       components: {
         MuiCssBaseline: {
@@ -89,6 +91,22 @@ const theme = (mode) => {
             },
           },
         },
+        MuiPaper: {
+          styleOverrides: {
+            root: {
+              margin: 16,
+            },
+          },
+        },
+        MuiContainer: {
+          styleOverrides: {
+            root: {
+              "&.content-container": {
+                padding: 0
+              }
+            }
+          }
+        }
       },
     })
   );
