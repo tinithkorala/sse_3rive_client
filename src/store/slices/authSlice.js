@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { signUpThunk, signInThunk } from "./../thunks/authThunks";
 import { stateStatus } from "../../config/appConfig";
-import { setAccessToken, setRefreshToken } from "../../utils/tokenUtils";
+import {
+  clearTokens,
+  setAccessToken,
+  setRefreshToken,
+} from "../../utils/tokenUtils";
 
 const initialState = {
   isAuthenticated: false,
@@ -14,7 +18,15 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    signOut: (state) => {
+      state.isAuthenticated = false;
+      state.user = null;
+      state.status = stateStatus.IDLE;
+      state.error = null;
+      clearTokens();
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(signUpThunk.pending, (state) => {
@@ -53,5 +65,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { signOut } = authSlice.actions;
 
 export default authSlice.reducer;
