@@ -44,7 +44,7 @@ const TaskProvider = ({ options, children }) => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [priorityFilter])
+  }, [priorityFilter]);
 
   return (
     <TaskContext.Provider

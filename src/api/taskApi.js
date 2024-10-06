@@ -32,7 +32,7 @@ export const taskCreate = async (formData) => {
 // Handle user task-update
 export const taskUpdate = async (formData) => {
   try {
-    const response = await axiosInstance.patch(`/tasks`, formData);
+    const response = await axiosInstance.patch(`/tasks/${formData.id}`, formData);
     return response;
   } catch (error) {
     console.error("Sign-up error:", error);

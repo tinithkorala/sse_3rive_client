@@ -17,7 +17,6 @@ import { taskCreate, taskUpdate } from "../../../api/taskApi";
 import { useTaskContext } from "../../../context/TaskContext";
 
 const TaskForm = ({ initialState, onCancel }) => {
-
   const { handleFetchTasks } = useTaskContext();
 
   const formik = useFormik({
@@ -29,6 +28,7 @@ const TaskForm = ({ initialState, onCancel }) => {
           await taskCreate(values);
         } else {
           await taskUpdate(values);
+          onCancel();
         }
         formik.resetForm();
         handleFetchTasks();
@@ -66,8 +66,7 @@ const TaskForm = ({ initialState, onCancel }) => {
       <DatePickerComponent formik={formik} label="Due Date" field="due_date" />
       <Stack direction="row" gap={2} justifyContent="flex-end">
         <Button
-          title="Create"
-          onClick={() => {}}
+          title={`${initialState?.id ? "Update" : "Create"}`}
           icon={<ControlPointIcon />}
           type="submit"
         />
