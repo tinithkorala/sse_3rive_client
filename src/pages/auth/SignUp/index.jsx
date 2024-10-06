@@ -11,6 +11,7 @@ import PasswordComponent from "../../../components/form/PasswordComponent";
 import TextComponent from "../../../components/form/TextComponent";
 import { signUpThunk } from "./../../../store/thunks/authThunks";
 import useAppSnackbar from "../../../hooks/useAppSnackbar";
+import { apiStates } from "../../../config/appConfig";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,9 @@ const SignUpPage = () => {
         /* eslint-disable no-unused-vars */
         const { password_confirmation, ...formData } = values;
         const response = await dispatch(signUpThunk(formData)).unwrap();
-        showSuccessSnackbar(response.message)
+        if (response.status === apiStates.success) {
+          showSuccessSnackbar(response.message);
+        }
       } catch (error) {
         showErrorSnackbar(error)
       }

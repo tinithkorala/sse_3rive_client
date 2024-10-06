@@ -11,6 +11,7 @@ import PasswordComponent from "../../../components/form/PasswordComponent";
 import TextComponent from "../../../components/form/TextComponent";
 import { signInThunk } from "./../../../store/thunks/authThunks";
 import useAppSnackbar from "../../../hooks/useAppSnackbar";
+import { apiStates } from "../../../config/appConfig";
 
 const SignInPage = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const SignInPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await dispatch(signInThunk(values)).unwrap();
-        showSuccessSnackbar(response.message)
+        if (response.status === apiStates.success) {
+          showSuccessSnackbar(response.message);
+        }
       } catch (error) {
         showErrorSnackbar(error)
       }
