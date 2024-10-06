@@ -1,11 +1,11 @@
 import TaskWrapper from "../../components/Task"
 import { TASK_STATUS } from "../../config/enumConfig"
 
-const InProgress = () => {
+const Pending = () => {
 
   const options = {
-    title: 'In Progress Tasks',
-    keyword: TASK_STATUS?.IN_PROGRESS?.keyword
+    title: 'Pending Tasks',
+    keyword: TASK_STATUS?.PENDING?.keyword
   }
 
   return (
@@ -15,4 +15,4 @@ const InProgress = () => {
   )
 }
 
-export default InProgress
+export default Pending

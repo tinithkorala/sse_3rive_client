@@ -1,15 +1,23 @@
 import axiosInstance from "../config/apiConfig";
 
-// const sortBy = 'sort=-createdAt,-due_date&limit=10&page=2';
-const sort = 'sort=-createdAt,-due_date';
-const limit = 'limit=5';
+const sort = "sort=-createdAt,-due_date";
+const limit = "limit=5";
 
-const finaleQuery = `?${sort}&${limit}`
+const finaleQuery = `?${sort}&${limit}`;
 
 // Handle user task-filter
-export const taskFilter = async (priorityStr, page = 1) => {
+export const taskFilter = async (priorityStr, statusStr, page = 1) => {
   try {
-    let queryString = `${finaleQuery}&page=${page}&priority[in]=${priorityStr.toUpperCase()}`;
+    let queryString = `${finaleQuery}&page=${page}`;
+
+    if (priorityStr?.length !== 0) {
+      queryString += `&priority[in]=${priorityStr.toUpperCase()}`;
+    }
+
+    if (statusStr?.length !== 0) {
+      queryString += `&status[in]=${statusStr.toUpperCase()}`;
+    }
+
     const response = await axiosInstance.get(`/tasks${queryString}`);
     return response;
   } catch (error) {
@@ -32,7 +40,10 @@ export const taskCreate = async (formData) => {
 // Handle user task-update
 export const taskUpdate = async (formData) => {
   try {
-    const response = await axiosInstance.patch(`/tasks/${formData.id}`, formData);
+    const response = await axiosInstance.patch(
+      `/tasks/${formData.id}`,
+      formData
+    );
     return response;
   } catch (error) {
     console.error("Sign-up error:", error);

@@ -7,6 +7,10 @@ import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import CancelIcon from '@mui/icons-material/Cancel';
+import Pending from "../pages/task/Pending";
+import Completed from "../pages/task/Completed";
+import OnHold from "../pages/task/OnHold";
+import Cancelled from "../pages/task/Cancelled";
 
 export const menuRoutes = [
   {
@@ -37,7 +41,7 @@ export const menuRoutes = [
     id: 4,
     name: "Pending Tasks",
     path: "/tasks-pending",
-    component: <h1>Pending Tasks</h1>,
+    component: <Pending />,
     isNavItem: true,
     iconComponent: <WorkHistoryIcon />,
   },
@@ -45,14 +49,14 @@ export const menuRoutes = [
     id: 5,
     name: "Completed Tasks",
     path: "/tasks-completed",
-    component: <h1>Completed Tasks</h1>,
+    component: <Completed />,
     iconComponent: <TaskAltIcon />,
   },
   {
     id: 6,
     name: "On Hold Tasks",
     path: "/tasks-on-hold",
-    component: <h1>On Hold Tasks</h1>,
+    component: <OnHold />,
     isNavItem: true,
     iconComponent: <PauseCircleFilledIcon />,
   },
@@ -60,7 +64,7 @@ export const menuRoutes = [
     id: 7,
     name: "Cancelled Tasks",
     path: "/tasks-cancelled",
-    component: <h1>Cancelled Tasks</h1>,
+    component: <Cancelled />,
     isNavItem: true,
     iconComponent: <CancelIcon />,
   },

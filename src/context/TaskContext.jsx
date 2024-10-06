@@ -23,11 +23,15 @@ const TaskProvider = ({ options, children }) => {
   const handleFetchTasks = useCallback(async () => {
     setLoading(true);
     try {
+      const statusStr = options?.keyword;
+
+      console.log(statusStr);
+
       const priorityStr =
         priorityFilter === "ALL"
           ? TASK_PRIORITY_KEYS_ARRAY?.join(",")
           : priorityFilter;
-      const response = await taskFilter(priorityStr, currentPage);
+      const response = await taskFilter(priorityStr, statusStr, currentPage);
       setTaskList(response?.data?.tasks || []);
       setTotalPage(response?.totalPages || 0);
       console.log(response);
