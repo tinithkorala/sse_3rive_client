@@ -7,11 +7,13 @@ const TaskFooter = () => {
 
   return (
     <Stack justifyContent="center">
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        totalPage={totalPage}
-      />
+      {totalPage >= 1 && (
+        <Pagination
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          totalPage={totalPage}
+        />
+      )}
     </Stack>
   );
 };
