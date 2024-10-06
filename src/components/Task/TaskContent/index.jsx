@@ -7,7 +7,11 @@ const TaskContent = () => {
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid
+        container
+        spacing={2}
+        sx={{ display: "flex", flexWrap: "wrap", alignItems: "stretch" }}
+      >
         {taskList?.map((el) => (
           <TaskItem key={el.id} task={el} />
         ))}
