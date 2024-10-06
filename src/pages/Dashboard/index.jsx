@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -9,19 +9,17 @@ import {
   Container,
 } from "@mui/material";
 import TaskIcon from "@mui/icons-material/Task";
+import PropTypes from "prop-types";
 
-import {
-  TASK_PRIORITY,
-  TASK_STATUS,
-  TASK_STATUS_KEYS_ARRAY,
-  TASK_STATUS_VALUES_ARRAY,
-} from "./../../config/enumConfig";
+import { TASK_PRIORITY, TASK_STATUS } from "./../../config/enumConfig";
 import ButtonGroup from "../../components/ui/ButtonGroup";
 import BarChart from "../../components/ui/BarChart";
 import PieChart from "../../components/ui/PieChart";
 import { useTheme } from "@mui/material/styles";
 import { dashboardStats } from "../../api/dashboardApi";
 import { useAuth } from "./../../hooks/useAuth";
+import styles from "./index.module.css";
+import useAppSnackbar from "../../hooks/useAppSnackbar";
 
 const initialState = {
   allTasksStatusWise: [
@@ -69,17 +67,12 @@ const periodList = {
   ALL: { keyword: "ALL" },
 };
 
-// eslint-disable-next-line react/prop-types
 const SummaryCard = ({ title, count, icon: IconComponent, variant }) => {
   return (
     <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2 }}>
       <Card
+        className={styles["summary-card-card"]}
         sx={{
-          position: "relative",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          m: 0,
           boxShadow: 3,
           borderLeft: 6,
           borderColor: `${variant}.main`,
@@ -93,18 +86,7 @@ const SummaryCard = ({ title, count, icon: IconComponent, variant }) => {
             {count}
           </Typography>
         </CardContent>
-        {/* Background icon */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            display: "flex",
-            p: 2,
-            opacity: 0.15,
-            fontSize: "4.5rem",
-          }}
-        >
+        <Box className={styles["summary-card-icon"]} p={2}>
           {IconComponent && (
             <IconComponent fontSize="inherit" color={variant} />
           )}
@@ -114,11 +96,17 @@ const SummaryCard = ({ title, count, icon: IconComponent, variant }) => {
   );
 };
 
+SummaryCard.propTypes = {
+  title: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  icon: PropTypes.element,
+  variant: PropTypes.string.isRequired,
+};
+
 export const Dashboard = () => {
   const theme = useTheme();
-
   const { user } = useAuth();
-
+  const { showErrorSnackbar, showSuccessSnackbar, snackbarTexts } = useAppSnackbar();
   const [fetchedData, setFetchedData] = useState(initialState);
   const [periodFilter, setPeriodFilter] = useState(periodList.TODAY.keyword);
 
@@ -126,14 +114,48 @@ export const Dashboard = () => {
     try {
       const response = await dashboardStats(periodFilter);
       setFetchedData(response?.data || initialState);
+      showSuccessSnackbar(snackbarTexts?.filterSuccess);
     } catch (error) {
+      showErrorSnackbar(error)
       console.error(error.message);
     }
-  }, [periodFilter]);
+  }, [periodFilter, showErrorSnackbar, showSuccessSnackbar, snackbarTexts?.filterSuccess]);
 
   useEffect(() => {
     handleDashbordStats();
   }, [handleDashbordStats]);
+
+  const allTasksCount = fetchedData?.allTasksPriorityWise?.reduce(
+    (sum, task) => sum + task.task_count,
+    0
+  );
+
+  const statusWiseTasks = fetchedData?.allTasksStatusWise || [];
+
+  const priorityWiseTasks = fetchedData?.allTasksPriorityWise || [];
+
+  const statusLabels = statusWiseTasks.map(
+    (task) => TASK_STATUS[task.status].label
+  );
+
+  const statusValues = statusWiseTasks.map((task) => Number(task.task_count));
+
+  const statusColors = statusWiseTasks.map(
+    (task) => theme.palette[TASK_STATUS[task.status]?.variant].main
+  );
+
+  const priorityLabels = priorityWiseTasks.map(
+    (task) => TASK_PRIORITY[task.priority].keyword
+  );
+
+  const priorityValues = priorityWiseTasks.map((task) => ({
+    value: Number(task.task_count),
+    name: TASK_PRIORITY[task.priority].keyword,
+  }));
+
+  const priorityColors = priorityWiseTasks.map(
+    (task) => theme.palette[TASK_PRIORITY[task.priority]?.variant].main
+  );
 
   return (
     <Container maxWidth="auto" disableGutters>
@@ -167,14 +189,7 @@ export const Dashboard = () => {
         </Grid>
       </Grid>
       <Grid container spacing={2} mb={4}>
-        <SummaryCard
-          title="All Tasks"
-          count={fetchedData.allTasksPriorityWise.reduce(
-            (sum, task) => sum + task.task_count,
-            0
-          )}
-          icon={TaskIcon}
-        />
+        <SummaryCard title="All Tasks" count={allTasksCount} icon={TaskIcon} />
         {fetchedData?.allTasksStatusWise?.map((status) => (
           <SummaryCard
             key={status.status}
@@ -185,36 +200,21 @@ export const Dashboard = () => {
           />
         ))}
       </Grid>
-
       <Grid container spacing={2} mb={4}>
         <Grid size={{ xs: 12, lg: 6 }} spacing={2}>
           <BarChart
             title="Status wise Tasks"
-            xLabels={fetchedData.allTasksStatusWise.map(
-              (task) => TASK_STATUS[task.status].label
-            )}
-            values={fetchedData.allTasksStatusWise.map((task) =>
-              Number(task.task_count)
-            )}
-            colors={fetchedData.allTasksStatusWise.map(
-              (task) => theme.palette[TASK_STATUS[task.status]?.variant].main
-            )}
+            xLabels={statusLabels}
+            values={statusValues}
+            colors={statusColors}
           />
         </Grid>
         <Grid size={{ xs: 12, lg: 6 }} spacing={2}>
           <PieChart
             title="Priority wise Tasks"
-            xLabels={fetchedData.allTasksPriorityWise.map(
-              (task) => TASK_PRIORITY[task.priority].keyword
-            )}
-            values={fetchedData.allTasksPriorityWise.map((task) => ({
-              value: Number(task.task_count),
-              name: TASK_PRIORITY[task.priority].keyword,
-            }))}
-            colors={fetchedData.allTasksPriorityWise.map(
-              (task) =>
-                theme.palette[TASK_PRIORITY[task.priority]?.variant].main
-            )}
+            xLabels={priorityLabels}
+            values={priorityValues}
+            colors={priorityColors}
           />
         </Grid>
       </Grid>
