@@ -85,7 +85,7 @@ const Sidebar = ({ isNavbarCollapsed, onNavbarToggle }) => {
       <Divider />
       <List>
         {menuRoutes?.map((el) => (
-          <NavItem key={el.id} item={el} />
+          <NavItem key={el.id} item={el} onClick={onNavbarToggle} />
         ))}
       </List>
     </Drawer>

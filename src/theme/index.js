@@ -1,6 +1,15 @@
 // theme.js
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { blueGrey, grey } from "@mui/material/colors";
+import {
+  amber,
+  blue,
+  blueGrey,
+  deepPurple,
+  green,
+  grey,
+  indigo,
+  red,
+} from "@mui/material/colors";
 import { themeModes } from "../utils/uiUtils";
 
 // Light mode color palette
@@ -36,6 +45,36 @@ const theme = (mode) => {
       palette: {
         mode: mode,
         text: isDarkMode ? darkPalette.text : lightPalette.text,
+        primary: {
+          main: deepPurple[500],
+          light: deepPurple[200],
+          dark: deepPurple[700],
+        },
+        secondary: {
+          main: indigo[500],
+          light: indigo[200],
+          dark: indigo[700],
+        },
+        success: {
+          main: green[500],
+          light: green[200],
+          dark: green[700],
+        },
+        error: {
+          main: red[500],
+          light: red[200],
+          dark: red[700],
+        },
+        warning: {
+          main: amber[500],
+          light: amber[200],
+          dark: amber[700],
+        },
+        info: {
+          main: blue[500],
+          light: blue[200],
+          dark: blue[700],
+        },
         action: {
           hoverOpacity: 0.08,
           selectedOpacity: 0.16,
@@ -71,6 +110,9 @@ const theme = (mode) => {
             },
             ".hide": {
               display: "none !important",
+            },
+            "form-label": {
+              marginBottom: 0,
             },
             body: {
               margin: 0,
@@ -119,42 +161,42 @@ const theme = (mode) => {
         MuiFormControl: {
           styleOverrides: {
             root: {
-              '&.MuiFormControl-root': {
-                margin: '12px 0px',
-                width: '100%',
+              "&.MuiFormControl-root": {
+                margin: "12px 0px",
+                width: "100%",
               },
-              '& .MuiFormLabel-root': {
-                top: '-7px',
+              "& .MuiFormLabel-root": {
+                top: "-7px",
               },
-              '&.form-input-element': {
+              "&.form-input-element": {
                 marginBottom: 0,
                 marginRight: 0,
                 marginLeft: 0,
                 marginTop: 4,
-                '& .MuiInputBase-root input': {
-                  margin: '0px',
-                  padding: '8.5px',
-                  paddingLeft: '14px',
+                "& .MuiInputBase-root input": {
+                  margin: "0px",
+                  padding: "8.5px",
+                  paddingLeft: "14px",
                 },
               },
-              '& .input-datepicker .MuiButtonBase-root .MuiSvgIcon-root': {
-                width: '0.85em',
-                height: '0.85em',
+              "& .input-datepicker .MuiButtonBase-root .MuiSvgIcon-root": {
+                width: "0.85em",
+                height: "0.85em",
               },
-              '& .MuiAutocomplete-root .MuiFormControl-root': {
-                margin: '0px',
-                width: '100%',
-                '& .MuiInputBase-root': {
-                  margin: '0px',
-                  padding: '8.5px',
-                  paddingLeft: '14px',
+              "& .MuiAutocomplete-root .MuiFormControl-root": {
+                margin: "0px",
+                width: "100%",
+                "& .MuiInputBase-root": {
+                  margin: "0px",
+                  padding: "8.5px",
+                  paddingLeft: "14px",
                 },
-                '& input': {
-                  padding: '0px',
+                "& input": {
+                  padding: "0px",
                 },
               },
-              '& .multi-select-dropdown .MuiInputBase-root': {
-                padding: '5.5px !important',
+              "& .multi-select-dropdown .MuiInputBase-root": {
+                padding: "5.5px !important",
               },
             },
           },
@@ -162,14 +204,14 @@ const theme = (mode) => {
         MuiTextField: {
           styleOverrides: {
             root: {
-              '& .MuiFormLabel-root': {
+              "& .MuiFormLabel-root": {
                 top: 0,
               },
-              '&.narrow-text-field': {
-                '&.MuiFormControl-root , & .MuiInputBase-root': {
+              "&.narrow-text-field": {
+                "&.MuiFormControl-root , & .MuiInputBase-root": {
                   margin: 0,
                 },
-                '& .MuiInputBase-input': {
+                "& .MuiInputBase-input": {
                   padding: 0,
                 },
               },
@@ -180,6 +222,23 @@ const theme = (mode) => {
           styleOverrides: {
             root: {
               fontSize: "1rem",
+            },
+          },
+        },
+        MuiDialog: {
+          styleOverrides: {
+            root: {
+              "& .MuiDialogTitle-root": { fontSize: "2rem" },
+            },
+          },
+        },
+        MuiListItemButton: {
+          styleOverrides: {
+            root: {
+              "&.active": {
+                background: isDarkMode ? grey[900] : grey[300],
+                color: isDarkMode ? grey[300] : grey[900],
+              },
             },
           },
         },
