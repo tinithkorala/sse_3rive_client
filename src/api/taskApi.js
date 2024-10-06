@@ -21,7 +21,7 @@ export const taskFilter = async (priorityStr, statusStr, page = 1) => {
     const response = await axiosInstance.get(`/tasks${queryString}`);
     return response;
   } catch (error) {
-    console.error("Sign-up error:", error);
+    console.error("Task Filter error:", error);
     throw error;
   }
 };
@@ -32,7 +32,7 @@ export const taskCreate = async (formData) => {
     const response = await axiosInstance.post(`/tasks`, formData);
     return response;
   } catch (error) {
-    console.error("Sign-up error:", error);
+    console.error("Task Create error:", error);
     throw error;
   }
 };
@@ -46,7 +46,7 @@ export const taskUpdate = async (formData) => {
     );
     return response;
   } catch (error) {
-    console.error("Sign-up error:", error);
+    console.error("Task Update error:", error);
     throw error;
   }
 };
@@ -57,7 +57,7 @@ export const taskDelete = async (id) => {
     const response = await axiosInstance.delete(`/tasks/${id}`);
     return response;
   } catch (error) {
-    console.error("Sign-up error:", error);
+    console.error("Task Delete error:", error);
     throw error;
   }
 };
