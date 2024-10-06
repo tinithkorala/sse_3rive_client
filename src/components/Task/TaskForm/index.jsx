@@ -51,7 +51,6 @@ const TaskForm = ({ initialState, onCancel }) => {
         formik.resetForm();
         handleFetchTasks();
       } catch (error) {
-        console.log(error);
       }
     },
   });

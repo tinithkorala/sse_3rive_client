@@ -25,8 +25,6 @@ const TaskProvider = ({ options, children }) => {
     try {
       const statusStr = options?.keyword;
 
-      console.log(statusStr);
-
       const priorityStr =
         priorityFilter === "ALL"
           ? TASK_PRIORITY_KEYS_ARRAY?.join(",")
@@ -34,13 +32,12 @@ const TaskProvider = ({ options, children }) => {
       const response = await taskFilter(priorityStr, statusStr, currentPage);
       setTaskList(response?.data?.tasks || []);
       setTotalPage(response?.totalPages || 0);
-      console.log(response);
     } catch (error) {
       console.error(error.message);
     } finally {
       setLoading(false);
     }
-  }, [currentPage, priorityFilter]);
+  }, [currentPage, options?.keyword, priorityFilter]);
 
   useEffect(() => {
     handleFetchTasks();
