@@ -11,13 +11,14 @@ import Pending from "../pages/task/Pending";
 import Completed from "../pages/task/Completed";
 import OnHold from "../pages/task/OnHold";
 import Cancelled from "../pages/task/Cancelled";
+import { Dashboard } from "../pages/Dashboard";
 
 export const menuRoutes = [
   {
     id: 1,
     name: "Dashboard",
     path: "/",
-    component: <h1>Dashboard1</h1>,
+    component: <Dashboard />,
     isNavItem: true,
     iconComponent: <DashboardIcon />,
   },

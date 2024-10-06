@@ -1,6 +1,15 @@
 // theme.js
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { blueGrey, grey } from "@mui/material/colors";
+import {
+  amber,
+  blue,
+  blueGrey,
+  deepPurple,
+  green,
+  grey,
+  indigo,
+  red,
+} from "@mui/material/colors";
 import { themeModes } from "../utils/uiUtils";
 
 // Light mode color palette
@@ -36,6 +45,36 @@ const theme = (mode) => {
       palette: {
         mode: mode,
         text: isDarkMode ? darkPalette.text : lightPalette.text,
+        primary: {
+          main: deepPurple[500],
+          light: deepPurple[200],
+          dark: deepPurple[700],
+        },
+        secondary: {
+          main: indigo[500],
+          light: indigo[200],
+          dark: indigo[700],
+        },
+        success: {
+          main: green[500],
+          light: green[200],
+          dark: green[700],
+        },
+        error: {
+          main: red[500],
+          light: red[200],
+          dark: red[700],
+        },
+        warning: {
+          main: amber[500],
+          light: amber[200],
+          dark: amber[700],
+        },
+        info: {
+          main: blue[500],
+          light: blue[200],
+          dark: blue[700],
+        },
         action: {
           hoverOpacity: 0.08,
           selectedOpacity: 0.16,
