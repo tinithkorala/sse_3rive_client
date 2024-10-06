@@ -39,3 +39,14 @@ export const taskUpdate = async (formData) => {
     throw error;
   }
 };
+
+// Handle user task-delete
+export const taskDelete = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/tasks/${id}`);
+    return response;
+  } catch (error) {
+    console.error("Sign-up error:", error);
+    throw error;
+  }
+};

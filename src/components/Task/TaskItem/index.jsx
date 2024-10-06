@@ -1,17 +1,10 @@
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import Typography from "@mui/material/Typography";
-import { Stack, Grid2 as Grid, Chip, IconButton, Box } from "@mui/material";
-import { grey } from "@mui/material/colors";
-import FlagIcon from "@mui/icons-material/Flag";
+import { Stack, Grid2 as Grid, IconButton, Box } from "@mui/material";
 import PropTypes from "prop-types";
-import { truncateString } from "../../../utils/stringUtils";
-import { dateDisplay, formatDate } from "../../../utils/dateUtils";
-import { TASK_PRIORITY, TASK_STATUS } from "../../../config/enumConfig";
 
 import styles from "./index.module.css";
 import Modal from "../../ui/Modal";
@@ -19,10 +12,18 @@ import TaskForm from "../TaskForm";
 import { useMemo, useState } from "react";
 import moment from "moment";
 import TaskCardContent from "../TaskCardContent";
+import useConfirmationModal from "../../../hooks/useConfirmationModal";
+import ConfirmationModalComponent from "../../ui/ConfirmationModal";
+import { modalText } from "../../../utils/modalTextUtils";
+import { taskDelete } from "../../../api/taskApi";
+import { useTaskContext } from "../../../context/TaskContext";
 
 const TaskItem = ({ task }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const { setCurrentPage } = useTaskContext();
+  const { modalConfig, isModalOpen, setModalConfig, setIsModalOpen, hideModal } =
+    useConfirmationModal();
 
   const formInitialState = useMemo(() => {
     const { id, title, description, status, priority, due_date } = task;
@@ -42,6 +43,21 @@ const TaskItem = ({ task }) => {
 
   const handleViewModalToggle = () => {
     setIsViewModalOpen((prev) => !prev);
+  };
+
+  const handleConfirmDelete = () => {
+    setModalConfig({
+      title: modalText.deleteConfirmationModal.title,
+      description: modalText.deleteConfirmationModal.description,
+      buttonLabel: modalText.deleteConfirmationModal.okButtonLabel,
+      onCancel: () => hideModal(),
+      onProcess: async () => {
+        await taskDelete(task.id);
+        setCurrentPage(1);
+        hideModal();
+      },
+    });
+    setIsModalOpen(true);
   };
 
   return (
@@ -80,6 +96,7 @@ const TaskItem = ({ task }) => {
                 size="large"
                 color="error"
                 sx={{ ml: 0 }}
+                onClick={handleConfirmDelete}
               >
                 <DeleteIcon sx={{ fontSize: "1.5rem" }} />
               </IconButton>
@@ -106,6 +123,17 @@ const TaskItem = ({ task }) => {
       >
         <TaskCardContent task={task} />
       </Modal>
+      {isModalOpen && (
+        <ConfirmationModalComponent
+          open={isModalOpen}
+          title={modalConfig.title}
+          description={modalConfig.description}
+          onCancel={modalConfig.onCancel}
+          onProcess={modalConfig.onProcess}
+          onClose={() => setIsModalOpen(false)}
+          buttonLabel={modalConfig.buttonLabel}
+        />
+      )}
     </>
   );
 };
