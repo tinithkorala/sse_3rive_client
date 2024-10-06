@@ -15,7 +15,6 @@ const PasswordComponent = ({ formik, label, field }) => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  console.log(field);
   const fieldId = `outlined-adornment-${field}`;
 
   return (

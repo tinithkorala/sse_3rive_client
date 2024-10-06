@@ -10,9 +10,11 @@ import { validationSchema } from "./validationSchema";
 import PasswordComponent from "../../../components/form/PasswordComponent";
 import TextComponent from "../../../components/form/TextComponent";
 import { signUpThunk } from "./../../../store/thunks/authThunks";
+import useAppSnackbar from "../../../hooks/useAppSnackbar";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
+  const {showSuccessSnackbar, showErrorSnackbar} = useAppSnackbar();
 
   const formik = useFormik({
     initialValues: {
@@ -27,9 +29,10 @@ const SignUpPage = () => {
       try {
         /* eslint-disable no-unused-vars */
         const { password_confirmation, ...formData } = values;
-        await dispatch(signUpThunk(formData)).unwrap();
+        const response = await dispatch(signUpThunk(formData)).unwrap();
+        showSuccessSnackbar(response.message)
       } catch (error) {
-        console.log(error);
+        showErrorSnackbar(error)
       }
     },
   });
