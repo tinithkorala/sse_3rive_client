@@ -6,13 +6,14 @@ import {
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 
 const NavItem = ({ item }) => {
   return (
     <ListItem disablePadding>
-      <ListItemButton>
+      <ListItemButton component={NavLink} to={item.path}>
         <ListItemIcon>
-          <InboxIcon />
+          {item?.iconComponent ? item?.iconComponent : <InboxIcon />}
         </ListItemIcon>
         <ListItemText primary={item.name} />
       </ListItemButton>

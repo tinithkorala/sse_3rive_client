@@ -1,6 +1,16 @@
+import TaskWrapper from "../../components/Task"
+
 const AllTasks = () => {
+
+  const options = {
+    title: 'All Tasks',
+    keyword: ''
+  }
+
   return (
-    <h1>AllTasks</h1>
+    <>
+      <TaskWrapper options={options} />
+    </>
   )
 }
 
