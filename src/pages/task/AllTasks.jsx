@@ -1,11 +1,11 @@
 import TaskWrapper from "../../components/Task"
-import { TASK_STATUS } from "../../config/enumConfig"
+import { TASK_STATUS_KEYS_ARRAY } from "../../config/enumConfig"
 
 const AllTasks = () => {
 
   const options = {
     title: 'All Tasks',
-    keyword: Object.keys(TASK_STATUS)
+    keyword: TASK_STATUS_KEYS_ARRAY
   }
 
   return (

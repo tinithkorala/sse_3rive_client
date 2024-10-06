@@ -7,7 +7,7 @@ import {
   useCallback,
 } from "react";
 import PropTypes from "prop-types";
-import { TASK_PRIORITY } from "../config/enumConfig";
+import { TASK_PRIORITY_KEYS_ARRAY } from "../config/enumConfig";
 import { taskFilter } from "../api/taskApi";
 
 const TaskContext = createContext();
@@ -25,7 +25,7 @@ const TaskProvider = ({ options, children }) => {
     try {
       const priorityStr =
         priorityFilter === "ALL"
-          ? Object.keys(TASK_PRIORITY)?.join(",")
+          ? TASK_PRIORITY_KEYS_ARRAY?.join(",")
           : priorityFilter;
       const response = await taskFilter(priorityStr, currentPage);
       setTaskList(response?.data?.tasks || []);
@@ -59,6 +59,7 @@ const TaskProvider = ({ options, children }) => {
           options,
           loading,
           error,
+          handleFetchTasks,
         }),
         [
           priorityFilter,
@@ -68,6 +69,7 @@ const TaskProvider = ({ options, children }) => {
           options,
           loading,
           error,
+          handleFetchTasks,
         ]
       )}
     >

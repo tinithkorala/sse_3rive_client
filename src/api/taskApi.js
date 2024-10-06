@@ -17,3 +17,25 @@ export const taskFilter = async (priorityStr, page = 1) => {
     throw error;
   }
 };
+
+// Handle user task-create
+export const taskCreate = async (formData) => {
+  try {
+    const response = await axiosInstance.post(`/tasks`, formData);
+    return response;
+  } catch (error) {
+    console.error("Sign-up error:", error);
+    throw error;
+  }
+};
+
+// Handle user task-update
+export const taskUpdate = async (formData) => {
+  try {
+    const response = await axiosInstance.patch(`/tasks`, formData);
+    return response;
+  } catch (error) {
+    console.error("Sign-up error:", error);
+    throw error;
+  }
+};

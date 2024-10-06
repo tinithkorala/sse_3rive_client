@@ -6,7 +6,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import { Stack, Grid2 as Grid, Chip, IconButton } from "@mui/material";
-import TagFacesIcon from "@mui/icons-material/TagFaces";
 import { grey } from "@mui/material/colors";
 import FlagIcon from "@mui/icons-material/Flag";
 import PropTypes from "prop-types";

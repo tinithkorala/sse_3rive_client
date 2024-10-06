@@ -1,12 +1,13 @@
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
 const TextComponent = ({ formik, label, field, type }) => {
   return (
+    <>
+    <Typography>{`Enter your ${label}`}</Typography>
     <TextField
       required
       fullWidth
-      label={`Enter your ${label}`}
       name={field}
       type={type}
       onChange={formik?.handleChange}
@@ -15,7 +16,7 @@ const TextComponent = ({ formik, label, field, type }) => {
       error={formik?.touched?.[field] && Boolean(formik?.errors?.[field])}
       helperText={formik?.touched?.[field] && formik?.errors?.[field]}
       size="small"
-    />
+    /></>
   );
 };
 
