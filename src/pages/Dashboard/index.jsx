@@ -20,6 +20,7 @@ import { dashboardStats } from "../../api/dashboardApi";
 import { useAuth } from "./../../hooks/useAuth";
 import styles from "./index.module.css";
 import useAppSnackbar from "../../hooks/useAppSnackbar";
+import useScreenSize from "../../hooks/useScreenSize";
 
 const initialState = {
   allTasksStatusWise: [
@@ -106,6 +107,7 @@ SummaryCard.propTypes = {
 export const Dashboard = () => {
   const theme = useTheme();
   const { user } = useAuth();
+  const { isMobile, isTablet } = useScreenSize();
   const { showErrorSnackbar, showSuccessSnackbar, snackbarTexts } = useAppSnackbar();
   const [fetchedData, setFetchedData] = useState(initialState);
   const [periodFilter, setPeriodFilter] = useState(periodList.TODAY.keyword);
@@ -164,7 +166,7 @@ export const Dashboard = () => {
           size={12}
           sx={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: isMobile|| isTablet ? "center" : "space-between",
             alignContent: "center",
           }}
         >
@@ -181,11 +183,11 @@ export const Dashboard = () => {
               {user?.first_name} !
             </Typography>
           </Stack>
-          <ButtonGroup
+          {!(isMobile|| isTablet) && <ButtonGroup
             buttons={Object.values(periodList)}
             selected={periodFilter}
             onSelect={setPeriodFilter}
-          />
+          />}
         </Grid>
       </Grid>
       <Grid container spacing={2} mb={4}>

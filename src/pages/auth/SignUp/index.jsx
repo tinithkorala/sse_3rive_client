@@ -42,7 +42,7 @@ const SignUpPage = () => {
 
   return (
     <>
-      <Typography variant="h3">Sign Up for Your Account</Typography>
+      <Typography variant="h4">Sign Up for Your Account</Typography>
       <Typography variant="body1">
         Sign up to organize, prioritize, and track tasks effortlessly with our
         intuitive platform.

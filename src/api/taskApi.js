@@ -1,7 +1,7 @@
 import axiosInstance from "../config/apiConfig";
 
 const sort = "sort=-createdAt,-due_date";
-const limit = "limit=5";
+const limit = "limit=10";
 
 const finaleQuery = `?${sort}&${limit}`;
 
