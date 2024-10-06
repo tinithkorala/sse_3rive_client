@@ -5,7 +5,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { Stack, Grid2 as Grid, Chip, IconButton } from "@mui/material";
+import { Stack, Grid2 as Grid, Chip, IconButton, Box } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import FlagIcon from "@mui/icons-material/Flag";
 import PropTypes from "prop-types";
@@ -18,14 +18,11 @@ import Modal from "../../ui/Modal";
 import TaskForm from "../TaskForm";
 import { useMemo, useState } from "react";
 import moment from "moment";
+import TaskCardContent from "../TaskCardContent";
 
 const TaskItem = ({ task }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
-
-  const priority = TASK_PRIORITY?.[task.priority];
-  const status = TASK_STATUS?.[task.status];
-  const DynamicIcon = status.icon;
 
   const formInitialState = useMemo(() => {
     const { id, title, description, status, priority, due_date } = task;
@@ -51,49 +48,10 @@ const TaskItem = ({ task }) => {
     <>
       <Grid size={{ xs: 12, sm: 6, md: 3 }}>
         <Card className={styles.card} elevation={8}>
-          <CardContent>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h6">{task.title}</Typography>
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              sx={{ color: grey[600], my: 2 }}
-            >
-              <Typography variant="body2">
-                Created {dateDisplay(task?.createdAt)}{" "}
-              </Typography>
-              <Typography variant="body2">
-                Due on {formatDate(task?.due_date)}{" "}
-              </Typography>
-            </Stack>
-            <Typography variant="body1">
-              {truncateString(task?.description || "", 100)}
-            </Typography>
-          </CardContent>
+          <Box sx={{ p: 2 }}>
+            <TaskCardContent task={task} isSummary={true} />
+          </Box>
           <CardActions>
-            <Stack
-              direction="row"
-              gap={0.5}
-              justifyContent="flex-start"
-              sx={{ ml: 1 }}
-            >
-              <Chip
-                color={priority.variant}
-                icon={<FlagIcon sx={{ fontSize: "1.25rem" }} />}
-                label={priority.keyword}
-              />
-              <Chip
-                color={status.variant}
-                icon={<DynamicIcon sx={{ fontSize: "1.25rem" }} />}
-                label={status.label}
-              />
-            </Stack>
             <Stack
               direction="row"
               justifyContent="flex-end"
@@ -131,19 +89,22 @@ const TaskItem = ({ task }) => {
       </Grid>
       <Modal
         open={isEditModalOpen}
-        title="Update Selected Task"
-        description="Fill in the details below to update the selected task"
+        title="Update Task"
+        description="Fill in the details below to update the task"
         onClose={handleEditModalToggle}
       >
-        <TaskForm initialState={formInitialState} onCancel={handleEditModalToggle} />
+        <TaskForm
+          initialState={formInitialState}
+          onCancel={handleEditModalToggle}
+        />
       </Modal>
       <Modal
         open={isViewModalOpen}
-        title="View Selected Task"
+        title="View Task"
         description=""
         onClose={handleViewModalToggle}
       >
-        <TaskForm initialState={formInitialState} onCancel={handleViewModalToggle} />
+        <TaskCardContent task={task} />
       </Modal>
     </>
   );

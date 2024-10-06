@@ -2,13 +2,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import PropTypes from "prop-types";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 const SelectComponent = ({ label, formik, field, menuList }) => {
   const fieldId = `select-label-${field}`;
 
   return (
-    <>
+    <Stack direction="column" sx={{width: "100%"}}>
       <Typography id={fieldId}>{`Enter your ${label}`}</Typography>
       <FormControl fullWidth size="small">
         <Select
@@ -26,7 +26,7 @@ const SelectComponent = ({ label, formik, field, menuList }) => {
           ))}
         </Select>
       </FormControl>
-    </>
+    </Stack>
   );
 };
 

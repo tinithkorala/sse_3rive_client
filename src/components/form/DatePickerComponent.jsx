@@ -3,11 +3,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { FormHelperText, Typography } from "@mui/material";
+import { FormHelperText, Stack, Typography } from "@mui/material";
 
 const DatePickerComponent = ({ label, formik, field }) => {
   return (
-    <>
+    <Stack direction="column" sx={{width: "100%"}}>
       <Typography className="form-label">{`Enter your ${label}`}</Typography>
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <DatePicker
@@ -30,13 +30,13 @@ const DatePickerComponent = ({ label, formik, field }) => {
           format="YYYY/MM/DD"
           formatDensity="dense"
           closeOnSelect={true}
-          slotProps={{ textField: { size: 'small' } }}
+          slotProps={{ textField: { size: "small" } }}
         />
       </LocalizationProvider>
       <FormHelperText error={true}>
         {formik.touched[field] && formik.errors[field]}
       </FormHelperText>
-    </>
+    </Stack>
   );
 };
 

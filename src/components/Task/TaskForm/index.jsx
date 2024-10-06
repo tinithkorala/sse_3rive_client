@@ -50,6 +50,7 @@ const TaskForm = ({ initialState, onCancel }) => {
         label="Description"
         field="description"
         type="text"
+        multiline={true}
       />
       <RadioButtonsComponent
         formik={formik}
@@ -57,13 +58,23 @@ const TaskForm = ({ initialState, onCancel }) => {
         field="priority"
         radioList={TASK_PRIORITY_KEYS_ARRAY}
       />
-      <SelectComponent
-        formik={formik}
-        label="Status"
-        field="status"
-        menuList={TASK_STATUS_VALUES_ARRAY}
-      />
-      <DatePickerComponent formik={formik} label="Due Date" field="due_date" />
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        sx={{width: "100%"}}
+        gap={2}
+      >
+        <SelectComponent
+          formik={formik}
+          label="Status"
+          field="status"
+          menuList={TASK_STATUS_VALUES_ARRAY}
+        />
+        <DatePickerComponent
+          formik={formik}
+          label="Due Date"
+          field="due_date"
+        />
+      </Stack>
       <Stack direction="row" gap={2} justifyContent="flex-end">
         <Button
           title={`${initialState?.id ? "Update" : "Create"}`}
