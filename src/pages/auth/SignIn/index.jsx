@@ -10,9 +10,12 @@ import { validationSchema } from "./validationSchema";
 import PasswordComponent from "../../../components/form/PasswordComponent";
 import TextComponent from "../../../components/form/TextComponent";
 import { signInThunk } from "./../../../store/thunks/authThunks";
+import useAppSnackbar from "../../../hooks/useAppSnackbar";
+import { apiStates } from "../../../config/appConfig";
 
 const SignInPage = () => {
   const dispatch = useDispatch();
+  const {showSuccessSnackbar, showErrorSnackbar} = useAppSnackbar();
 
   const formik = useFormik({
     initialValues: {
@@ -22,10 +25,12 @@ const SignInPage = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        /* eslint-disable no-unused-vars */
-        await dispatch(signInThunk(values)).unwrap();
+        const response = await dispatch(signInThunk(values)).unwrap();
+        if (response.status === apiStates.success) {
+          showSuccessSnackbar(response.message);
+        }
       } catch (error) {
-        console.log(error);
+        showErrorSnackbar(error)
       }
     },
   });

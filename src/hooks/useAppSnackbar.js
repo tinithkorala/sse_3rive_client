@@ -20,11 +20,8 @@ const useAppSnackbar = () => {
   );
 
   const showErrorSnackbar = useCallback(
-    (error, message) => {
-      const showMessage =
-        error?.status === 403
-          ? snackbarTexts?.errorAuthMessage
-          : message || snackbarTexts?.errorMessage;
+    (message) => {
+      const showMessage = message || snackbarTexts?.successMessage;
       enqueueSnackbar(showMessage, {
         variant: snackbarVariants?.ERROR,
         // action: (key) => (

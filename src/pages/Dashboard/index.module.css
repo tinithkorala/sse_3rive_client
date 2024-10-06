@@ -1,0 +1,16 @@
+.summary-card-card{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 !important;
+}
+
+.summary-card-icon{
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  opacity: 0.15;
+  font-size: 4.5rem;
+}

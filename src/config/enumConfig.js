@@ -41,7 +41,7 @@ export const TASK_STATUS = Object.freeze({
   ON_HOLD: {
     keyword: "ON_HOLD",
     label: "On Hold",
-    variant: "default",
+    variant: "secondary",
     icon: PauseCircleFilledIcon,
   },
   CANCELLED: {

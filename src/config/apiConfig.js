@@ -56,13 +56,12 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalRequest);
         } catch (error) {
           store.dispatch(signOut());
-          window.location.href = "/sign-in";
-          return Promise.reject(error);
+          // return Promise.reject(error);
         }
       } else {
         store.dispatch(signOut());
-        window.location.href = "/sign-in";
-        return Promise.reject(error);
+        // window.location.href = "/sign-in";
+        // return Promise.reject(error);
       }
     } else if (error.response) {
       console.error("Response error:", error.response);
@@ -85,6 +84,7 @@ const getPostRefreshToken = async () => {
       setAccessToken(response?.data?.accessToken);
     }
   } catch (error) {
+    store.dispatch(signOut());
     throw new Error("Could not refresh token");
   }
 };

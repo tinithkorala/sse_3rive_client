@@ -20,7 +20,8 @@ import { apiStates } from "../../../config/appConfig";
 
 const TaskForm = ({ initialState, onCancel }) => {
   const { handleFetchTasks } = useTaskContext();
-  const {showSuccessSnackbar, showErrorSnackbar, snackbarTexts} = useAppSnackbar();
+  const { showSuccessSnackbar, showErrorSnackbar, snackbarTexts } =
+    useAppSnackbar();
 
   const formik = useFormik({
     initialValues: initialState,
@@ -28,20 +29,28 @@ const TaskForm = ({ initialState, onCancel }) => {
     onSubmit: async (values) => {
       try {
         if (!values?.id) {
-          const response = await taskCreate(values);
-          if(response.status === apiStates.success) {
-            showSuccessSnackbar(snackbarTexts.saveSuccess);
-          }else {
-            showErrorSnackbar(snackbarTexts.errorMessage);
+          try {
+            const response = await taskCreate(values);
+            if (response.status === apiStates.success) {
+              showSuccessSnackbar(response.message);
+            }
+          } catch (error) {
+            showErrorSnackbar(error);
           }
         } else {
-          await taskUpdate(values);
+          try {
+            const response = await taskUpdate(values);
+            if (response.status === apiStates.success) {
+              showSuccessSnackbar(response.message);
+            }
+          } catch (error) {
+            showErrorSnackbar(error);
+          }
           onCancel();
         }
         formik.resetForm();
         handleFetchTasks();
       } catch (error) {
-        console.log(error);
       }
     },
   });
@@ -68,7 +77,7 @@ const TaskForm = ({ initialState, onCancel }) => {
       />
       <Stack
         direction={{ xs: "column", sm: "row" }}
-        sx={{width: "100%"}}
+        sx={{ width: "100%" }}
         gap={2}
       >
         <SelectComponent

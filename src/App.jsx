@@ -16,7 +16,7 @@ function App() {
     <SnackbarProvider
       domRoot={document.getElementById("snackbar-root")}
       dense={true}
-      autoHideDuration={4000}
+      autoHideDuration={1500}
       maxSnack={5}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >

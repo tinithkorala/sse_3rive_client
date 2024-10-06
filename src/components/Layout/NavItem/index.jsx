@@ -7,10 +7,18 @@ import {
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+import useScreenSize from "../../../hooks/useScreenSize";
 
-const NavItem = ({ item }) => {
+const NavItem = ({ item, onClick }) => {
+  const { isMobile } = useScreenSize();
+
   return (
-    <ListItem disablePadding>
+    <ListItem
+      disablePadding
+      onClick={() => {
+        isMobile && onClick();
+      }}
+    >
       <ListItemButton component={NavLink} to={item.path}>
         <ListItemIcon>
           {item?.iconComponent ? item?.iconComponent : <InboxIcon />}
@@ -23,6 +31,7 @@ const NavItem = ({ item }) => {
 
 NavItem.propTypes = {
   item: PropTypes.object.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default NavItem;
