@@ -15,9 +15,12 @@ import DatePickerComponent from "../../form/DatePickerComponent";
 import Button from "../../ui/Button";
 import { taskCreate, taskUpdate } from "../../../api/taskApi";
 import { useTaskContext } from "../../../context/TaskContext";
+import useAppSnackbar from "../../../hooks/useAppSnackbar";
+import { apiStates } from "../../../config/appConfig";
 
 const TaskForm = ({ initialState, onCancel }) => {
   const { handleFetchTasks } = useTaskContext();
+  const {showSuccessSnackbar, showErrorSnackbar, snackbarTexts} = useAppSnackbar();
 
   const formik = useFormik({
     initialValues: initialState,
@@ -25,7 +28,12 @@ const TaskForm = ({ initialState, onCancel }) => {
     onSubmit: async (values) => {
       try {
         if (!values?.id) {
-          await taskCreate(values);
+          const response = await taskCreate(values);
+          if(response.status === apiStates.success) {
+            showSuccessSnackbar(snackbarTexts.saveSuccess);
+          }else {
+            showErrorSnackbar(snackbarTexts.errorMessage);
+          }
         } else {
           await taskUpdate(values);
           onCancel();
