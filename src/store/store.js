@@ -4,6 +4,7 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 
 import uiReducer from "./slices/uiSlice";
+import authReducer from "./slices/authSlice";
 
 const uiPersistConfig = {
   key: "ui",
@@ -11,8 +12,15 @@ const uiPersistConfig = {
   storage,
 };
 
+const authPersistConfig = {
+  key: "auth",
+  version: 1,
+  storage,
+};
+
 const rootReducer = combineReducers({
   ui: persistReducer(uiPersistConfig, uiReducer),
+  auth: persistReducer(authPersistConfig, authReducer),
 });
 
 export const store = configureStore({

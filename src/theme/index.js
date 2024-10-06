@@ -102,11 +102,87 @@ const theme = (mode) => {
           styleOverrides: {
             root: {
               "&.content-container": {
-                padding: 0
-              }
-            }
-          }
-        }
+                padding: 0,
+              },
+              "&.guest-layout-container": {
+                height: "100dvh",
+                width: "100dvw",
+                maxWidth: "100vw",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: grey[200],
+              },
+            },
+          },
+        },
+        MuiFormControl: {
+          styleOverrides: {
+            root: {
+              '&.MuiFormControl-root': {
+                margin: '12px 0px',
+                width: '100%',
+              },
+              '& .MuiFormLabel-root': {
+                top: '-7px',
+              },
+              '&.form-input-element': {
+                marginBottom: 0,
+                marginRight: 0,
+                marginLeft: 0,
+                marginTop: 4,
+                '& .MuiInputBase-root input': {
+                  margin: '0px',
+                  padding: '8.5px',
+                  paddingLeft: '14px',
+                },
+              },
+              '& .input-datepicker .MuiButtonBase-root .MuiSvgIcon-root': {
+                width: '0.85em',
+                height: '0.85em',
+              },
+              '& .MuiAutocomplete-root .MuiFormControl-root': {
+                margin: '0px',
+                width: '100%',
+                '& .MuiInputBase-root': {
+                  margin: '0px',
+                  padding: '8.5px',
+                  paddingLeft: '14px',
+                },
+                '& input': {
+                  padding: '0px',
+                },
+              },
+              '& .multi-select-dropdown .MuiInputBase-root': {
+                padding: '5.5px !important',
+              },
+            },
+          },
+        },
+        MuiTextField: {
+          styleOverrides: {
+            root: {
+              '& .MuiFormLabel-root': {
+                top: 0,
+              },
+              '&.narrow-text-field': {
+                '&.MuiFormControl-root , & .MuiInputBase-root': {
+                  margin: 0,
+                },
+                '& .MuiInputBase-input': {
+                  padding: 0,
+                },
+              },
+            },
+          },
+        },
+        MuiFormHelperText: {
+          styleOverrides: {
+            root: {
+              fontSize: "1rem",
+            },
+          },
+        },
       },
     })
   );
