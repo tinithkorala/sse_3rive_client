@@ -193,6 +193,16 @@ const theme = (mode) => {
             },
           },
         },
+        MuiListItemButton: {
+          styleOverrides: {
+            root: {
+              "&.active": {
+                background: isDarkMode ? grey[900] : grey[300],
+                color: isDarkMode ? grey[300] : grey[900],
+              },
+            },
+          },
+        },
       },
     })
   );
