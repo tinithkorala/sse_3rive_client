@@ -98,9 +98,9 @@ const SummaryCard = ({ title, count, icon: IconComponent, variant }) => {
 
 SummaryCard.propTypes = {
   title: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  icon: PropTypes.element,
-  variant: PropTypes.string.isRequired,
+  count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  icon: PropTypes.object,
+  variant: PropTypes.string,
 };
 
 export const Dashboard = () => {

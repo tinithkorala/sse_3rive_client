@@ -9,10 +9,12 @@ import {
 import PropTypes from "prop-types";
 import { TASK_PRIORITY_KEYS_ARRAY } from "../config/enumConfig";
 import { taskFilter } from "../api/taskApi";
+import useAppSnackbar from "../hooks/useAppSnackbar";
 
 const TaskContext = createContext();
 
 const TaskProvider = ({ options, children }) => {
+  const { showErrorSnackbar, showSuccessSnackbar, snackbarTexts } = useAppSnackbar();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [priorityFilter, setPriorityFilter] = useState("ALL");
@@ -32,7 +34,9 @@ const TaskProvider = ({ options, children }) => {
       const response = await taskFilter(priorityStr, statusStr, currentPage);
       setTaskList(response?.data?.tasks || []);
       setTotalPage(response?.totalPages || 0);
+      showSuccessSnackbar(snackbarTexts?.filterSuccess);
     } catch (error) {
+      showErrorSnackbar(error);
       console.error(error.message);
     } finally {
       setLoading(false);
